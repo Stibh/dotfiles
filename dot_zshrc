@@ -1,0 +1,73 @@
+#£##################################
+##                                ##
+##  @@@@@@@@   @@@@@@   @@@  @@@  ##
+##  @@@@@@@@  @@@@@@@   @@@  @@@  ##
+##       @@!  !@@       @@!  @@@  ##
+##      !@!   !@!       !@!  @!@  ##
+##     @!!    !!@@!!    @!@!@!@!  ##
+##    !!!      !!@!!!   !!!@!!!!  ##
+##   !!:           !:!  !!:  !!!  ##
+##  :!:           !:!   :!:  !:!  ##
+##   :: ::::  :::: ::   ::   :::  ##
+##  : :: : :  :: : :     :   : :  ##
+##                                ##
+####################################
+
+### Core env
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="agnoster" # to set to random theme, set to "random"
+
+# to pull form a SET of random themes, set the above and uncomment the below line:
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" "ys" "simple" "jonathan")
+
+plugins=(git)
+ #Load OMZ after plugins/theme are set
+source "$ZSH/oh-my-zsh.sh"
+
+# Sources the aliases folder
+for file in ~/.config/.smgdots/.aliases/*.sh; do
+    source "$file"
+done
+
+### Path
+typeset -U path PATH
+path=(
+  "$HOME/bin"
+  "$HOME/.local/bin"
+  /usr/local/bin
+  "$HOME/.lmstudio/bin"
+  $path
+)
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/stephenmcgurrin/.lmstudio/bin"
+
+### Shell behaviour
+setopt autocd              # `cd` by typing dir name
+setopt interactivecomments # allow comments at prompt
+setopt inc_append_history  # write commands immediately
+setopt share_history       # share history across sessions
+setopt hist_ignore_all_dups
+setopt hist_verify
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+HIST_STAMPS="yyyy-mm-dd"
+
+# Disable focus events (for when not in tmux)
+if [[ $- == *i* ]] && [[ -z "$TMUX" ]]; then
+    printf '\e[?1004l'
+fi
+
+### Editor
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+# Disable focus events (for when not in tmux)
+if [[ $- == *i* ]] && [[ -z "$TMUX" ]]; then
+    printf '\e[?1004l'
+fi
+
+# Tmux helpers
+#alias tls='tmux ls | fzf'
+#tm() { tmux new -A -s "${1:-main}"; }
