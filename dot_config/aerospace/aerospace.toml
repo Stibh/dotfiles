@@ -33,13 +33,26 @@ automatically-unhide-macos-hidden-apps = false
 [key-mapping]
 preset = 'qwerty'
 
+#ADDED STUFF
+#
+#
+#
+#
+#
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
+]
+
 # Gaps between windows and monitor edges
 [gaps]
 inner.horizontal = 60
 inner.vertical = 30
 outer.left = 55
 outer.right= 55
-outer.top = 10
+outer.top = 60
 outer.bottom = 40
 
 
