@@ -1,4 +1,4 @@
-# Quick editors
+#test Quick editors
 alias zedit='nvim ~/.zshrc'
 alias tmuxedit='nvim ~/.config/tmux/tmux.conf'
 alias zource='source ~/.zshrc'
