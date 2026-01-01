@@ -1,0 +1,9 @@
+override CFLAGS += -std=c99 -O3
+
+memory_load: ./memory_load.c ./memory.h
+	clang $< -o ./bin/$@ $(CFLAGS)
+
+.PHONY: clean
+clean: SHELL:=/bin/bash
+clean:
+	rm -f ./bin/memory_load
