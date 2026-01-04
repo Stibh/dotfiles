@@ -1,17 +1,57 @@
+#!/bin/bash
+
+# Sketchybar Installation Script
+# Installs all dependencies needed for the sketchybar configuration
+
+set -e  # Exit on error
+
+echo "Installing sketchybar dependencies..."
+
 # Packages
 brew install lua
 brew install switchaudio-osx
 brew install nowplaying-cli
 
+# Tap and install sketchybar
 brew tap FelixKratz/formulae
 brew install sketchybar
 
 # Fonts
+echo "Installing fonts..."
+brew tap homebrew/cask-fonts
+
+# Install FiraCode Nerd Font (needed for eza icons and general use)
+brew install --cask font-fira-code-nerd-font
+
+# Install SF fonts
 brew install --cask sf-symbols
-brew install --cask homebrew/cask-fonts/font-sf-mono
-brew install --cask homebrew/cask-fonts/font-sf-pro
+brew install --cask font-sf-mono
+brew install --cask font-sf-pro
 
-curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+# Download sketchybar-app-font
+echo "Downloading sketchybar-app-font..."
+mkdir -p "$HOME/Library/Fonts"
+curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o "$HOME/Library/Fonts/sketchybar-app-font.ttf"
 
-# SbarLua
+# SbarLua (Lua bindings for sketchybar)
+echo "Installing SbarLua..."
 (git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua && cd /tmp/SbarLua/ && make install && rm -rf /tmp/SbarLua/)
+
+# Build event providers
+echo "Building C event providers..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+if [ -f "makefile" ]; then
+    make
+    echo "✓ Event providers built successfully"
+else
+    echo "Warning: makefile not found, skipping event provider build"
+fi
+
+echo ""
+echo "✓ Sketchybar installation complete!"
+echo ""
+echo "Next steps:"
+echo "  1. Reload sketchybar: sketchybar --reload"
+echo "  2. Check your menu bar for the custom status bar"
+echo ""
