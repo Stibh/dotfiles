@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Build sketchybar event providers after dotfiles are applied
+
+set -e
+
+if [ -d "$HOME/.config/sketchybar/helpers" ]; then
+    cd "$HOME/.config/sketchybar/helpers"
+    if [ -f "makefile" ]; then
+        echo "Building sketchybar event providers..."
+        make
+        echo "✓ Event providers built"
+    fi
+fi
