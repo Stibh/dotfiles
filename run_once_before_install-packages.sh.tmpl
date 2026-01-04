@@ -31,11 +31,12 @@ brew install --cask nikitabobko/tap/aerospace
 mkdir -p "$HOME/Library/Fonts"
 curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o "$HOME/Library/Fonts/sketchybar-app-font.ttf"
 
-# Install SbarLua
-if [ ! -d "$HOME/.local/share/sketchybar_lua" ]; then
-    git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
-    cd /tmp/SbarLua && make install && cd -
-    rm -rf /tmp/SbarLua
-fi
+# Install SbarLua (critical for sketchybar lua config)
+echo "Installing SbarLua..."
+rm -rf /tmp/SbarLua
+git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
+(cd /tmp/SbarLua && make install)
+rm -rf /tmp/SbarLua
 
 echo "✓ Dependencies installed"
+echo "✓ SbarLua installed to ~/.local/share/sketchybar_lua"
