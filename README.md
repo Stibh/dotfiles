@@ -21,31 +21,20 @@ The setup includes:
 
 ## Fresh Installation
 
-### Quick Start
-
-On a fresh macOS installation, run:
+On a fresh macOS installation:
 
 ```bash
-# Clone this repository
-git clone <your-repo-url> ~/dotfiles
+# Install chezmoi
+brew install chezmoi
 
-# Run the bootstrap script
-cd ~/dotfiles
-./bootstrap.sh
+# Apply dotfiles
+chezmoi init --apply <your-repo-url>
+
+# Run install script (installs SbarLua and builds event providers)
+~/.local/share/chezmoi/install.sh
 ```
 
-The bootstrap script will:
-1. ✅ Install Xcode Command Line Tools
-2. ✅ Install Homebrew (if not present)
-3. ✅ Install chezmoi and apply dotfiles
-4. ✅ Install all required packages (lua, neovim, tmux, eza, etc.)
-5. ✅ Install sketchybar and dependencies
-6. ✅ Install all required fonts (FiraCode Nerd Font, SF Symbols, etc.)
-7. ✅ Install SbarLua (Lua bindings for sketchybar)
-8. ✅ Build C event providers for CPU/memory/network monitoring
-9. ✅ Install oh-my-zsh
-10. ✅ Install tmux plugin manager (TPM)
-11. ✅ Start sketchybar
+That's it.
 
 ### Post-Installation Steps
 
