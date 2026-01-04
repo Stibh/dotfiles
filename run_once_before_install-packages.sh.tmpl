@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This script runs automatically when you run 'chezmoi init' or 'chezmoi apply'
+# It installs all dependencies needed for the dotfiles
+
+set -e
+
+echo "Installing dependencies..."
+
+# Install Homebrew if not present
+if ! command -v brew &>/dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Install packages
+brew install lua neovim tmux fzf eza fastfetch switchaudio-osx nowplaying-cli
+
+# Install sketchybar
+brew tap FelixKratz/formulae
+brew install sketchybar borders
+
+# Install fonts
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code-nerd-font sf-symbols font-sf-mono font-sf-pro
+
+# Install AeroSpace
+brew install --cask nikitabobko/tap/aerospace
+
+# Download sketchybar-app-font
+mkdir -p "$HOME/Library/Fonts"
+curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o "$HOME/Library/Fonts/sketchybar-app-font.ttf"
+
+# Install SbarLua
+if [ ! -d "$HOME/.local/share/sketchybar_lua" ]; then
+    git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
+    cd /tmp/SbarLua && make install && cd -
+    rm -rf /tmp/SbarLua
+fi
+
+echo "✓ Dependencies installed"
